@@ -17,12 +17,26 @@ const options = {
 btn.addEventListener("click", getJokes);
 
 async function getJokes() {
-    jokeEl.innerText = "Please Wait....";
-    btn.disabled = true;
-    btn.innerText = "Loading....";
-    const response = await fetch(apiURL, options);
-    const data = await response.json();
-    jokeEl.innerText = data[0].joke;
-    btn.disabled = false;
-    btn.innerText = "Generate a joke";
+
+    try {
+        jokeEl.innerText = "Please Wait....";
+        btn.disabled = true;
+        btn.innerText = "Loading....";
+
+        const response = await fetch(apiURL, options);
+        const data = await response.json();
+
+        btn.disabled = false;
+        btn.innerText = "Generate a joke";
+
+        jokeEl.innerText = data[0].joke;
+    }
+    catch (error) {
+        jokeEl.innerText = "Something isn't right here...."
+        btn.disabled = false;
+        btn.innerText = "Generate a joke";
+    }
+
+
+
 }
